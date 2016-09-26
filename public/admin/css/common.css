@@ -1,0 +1,58 @@
+body {
+	font-family: "微软雅黑";
+	background: #F2F2F2;
+}
+
+.item {
+	margin-bottom: 20px;
+}
+
+@media (min-width: 992px) {
+	.vmc-text-right {
+		text-align: right;
+	}
+
+	.vmc-item-x {
+		margin-bottom: 0;
+	}
+}
+
+.well {
+	background-color: #FFF;
+}
+
+/**********************************************************************/
+.m-pg-ft .pg-left,
+.m-pg-ft .pg-info,
+.m-pg-ft .pg-jump {
+	float: left;
+	margin: 0 15px;
+}
+
+.m-pg-ft .pg-right {
+	float: right;
+}
+
+.m-pg-ft .pg-info {
+	line-height: 34px;
+}
+
+.m-pg-ft .pg-jump {
+	width: 120px;
+}
+
+@media (max-width: 768px) {
+	.m-pg-ft .pg-left,
+	.m-pg-ft .pg-right,
+	.m-pg-ft .pg-info,
+	.m-pg-ft .pg-jump {
+		float: none;
+	}
+
+	.m-pg-ft .pg-left,
+	.m-pg-ft .pg-info {
+		margin-bottom: 20px;
+	}
+}
+
+/**********************************************************************/

@@ -11,6 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['domain' => config('custom.admin_domain')], function () {
+
+	Route::get('/', 'Admin\IndexController@index');
+
+	Route::get('/user', 'Admin\UsersController@index');
+	Route::post('/user/table', 'Admin\UsersController@table');
+	Route::get('/user/create/{id?}', 'Admin\UsersController@create');
+	Route::post('/user/insert', 'Admin\UsersController@insert');
+
+});
+
+Route::group(['domain' => config('custom.home_domain')], function () {
+	Route::get('/', function () {
+		return view('welcome');
+	});
 });

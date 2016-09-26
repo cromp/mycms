@@ -1,0 +1,88 @@
+
+#topbar.navbar {
+	margin-bottom: 0;
+}
+
+/*******************************************************************************************/
+
+.wrap {
+	position: relative;
+	overflow: hidden;
+	background: #FFF;
+}
+
+.side {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 220px;
+	background: #00B5AD;
+	overflow: auto;
+}
+
+.main {
+	height: 100%;
+	margin: 0 0 0 220px;
+	background: #FFF;
+}
+
+/*******************************************************************************************/
+.side .panel {
+	border-width: 0;
+	border-color: #039690;
+	border-radius: 0;
+	margin-bottom: 0;
+	background-color: #00B5AD;
+}
+
+.side .panel-heading {
+	display: block;
+	border-radius: 0;
+	border-color: #039690;
+	background-color: #00B5AD;
+	color: #DFF3F2;
+	cursor: pointer;
+}
+
+.side a.panel-heading {
+	text-decoration: none;
+}
+
+.side .list-group {
+	border-bottom: 1px solid #039690;
+}
+
+.side .list-group-item {
+	border-color: #039690;
+	background-color: #00A39C;
+	color: #B8DDDB;
+}
+
+.side a.list-group-item {
+	color: #B8DDDB;
+}
+
+.side a.list-group-item:focus,
+.side a.list-group-item:hover,
+.side button.list-group-item:focus,
+.side button.list-group-item:hover {
+	background-color: #039690;
+	color: #FFFFFF;
+}
+
+/*************************************************************************************************/
+
+/*************************************************************************************************/
+
+#mainframe {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+#sideframe {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
