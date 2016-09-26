@@ -3,12 +3,12 @@
 @section('title', '管理平台')
 
 @section('main')
-	@include('admin.layouts.frame.topbar')
+	@include('admin.index.frame.topbar')
 	<div class="container-fluid">
 		<div class="row wrap">
-			@include('admin.layouts.frame.menu')
+			@include('admin.index.frame.menu')
 			<div class="main">
-				<iframe src="{:U('Index/main')}" name="mainframe" id="mainframe" frameborder="no" scrolling="yes"></iframe>
+				<iframe src="{{ url('/home') }}" name="mainframe" id="mainframe" frameborder="no" scrolling="yes"></iframe>
 			</div>
 		</div>
 	</div>

@@ -14,6 +14,7 @@
 Route::group(['domain' => config('custom.admin_domain')], function () {
 
 	Route::get('/', 'Admin\IndexController@index');
+	Route::get('/home', 'Admin\IndexController@home');
 
 	Route::get('/user', 'Admin\UsersController@index');
 	Route::post('/user/table', 'Admin\UsersController@table');

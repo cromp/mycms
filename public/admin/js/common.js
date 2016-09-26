@@ -1,39 +1,47 @@
 var url = {};
-//--------------------------------------------------------------------------------
-// 加载
-//--------------------------------------------------------------------------------
-$(function () {
-	var loading;
-	var ajaxflag = 0;
-	var loadingStatus = function (status) {
-		if (true === status) {
-			ajaxflag++;
-		} else {
-			ajaxflag--;
-		}
-		if (ajaxflag > 0) {
-			loading = layer.load(0, {
-				shade: [0.1, '#fff'] //0.1透明度的白色背景
-			});
-		} else {
-			layer.close(loading);
-		}
-	};
-	$(document).ajaxSend(function () {
-		loadingStatus(true);
-	}).ajaxComplete(function () {
-		loadingStatus(false);
-	});
-});
-
+var thisWindowIndex = parent.layer.getFrameIndex(window.name) || null;
+/**
+ * 为AJAX表单提交添加CSRF
+ */
 $.ajaxSetup({
 	headers: {
 		'X-XSRF-TOKEN': $.cookie('XSRF-TOKEN')
 	}
 });
-//--------------------------------------------------------------------------------
-// 全局事件
-//--------------------------------------------------------------------------------
+/**
+ * 加载动画
+ */
+$(function () {
+	var loadingIndex,
+		ajaxFlag = 0,
+		dialogStatus = 0,
+		loadingToggle = function (status) {
+			if (true === status) {
+				ajaxFlag++;
+			} else {
+				ajaxFlag--;
+			}
+			if (ajaxFlag > 0) {
+				if (dialogStatus == 0) {
+					loadingIndex = layer.load(0, {
+						shade: [0.1, '#FFF'] //0.1透明度的白色背景
+					});
+					dialogStatus = 1;
+				}
+			} else {
+				layer.close(loadingIndex);
+				dialogStatus = 0;
+			}
+		};
+	$(document).ajaxSend(function () {
+		loadingToggle(true);
+	}).ajaxComplete(function () {
+		loadingToggle(false);
+	});
+});
+/**
+ * 全局事件委派
+ */
 $(function () {
 	// 点击
 	$(document).on('click', '.vmc-open', function (e) {
@@ -124,3 +132,79 @@ $(function () {
 		$(this).val(value);
 	});
 });
+/**
+ * 将自动采集数据的字段注册到submit对象
+ * @param elem dom对象范围，在此范围采集数据
+ * @param submit submit实例化对象
+ * @param group 返回到submit中的分组名称
+ * @param className 自动采集时查询到class名称
+ */
+var autoReg = function (elem, submit, group, className) {
+	// 原生通用的
+	(function () {
+		var tag = ['select', 'textarea', 'input:text', 'input:password', 'input:hidden'];
+		for (var i = 0; i < tag.length; i++) {
+			tag[i] += '.' + className;
+		}
+		var selector = tag.join();
+		elem.find(selector).each(function () {
+			var the = $(this);
+			submit.reg({
+				group: group,
+				name: the.attr('name'),
+				get: function (name) {
+					return the.val();
+				},
+				set: function (name, value, data) {
+					the.val(value);
+				}
+			});
+		});
+	})();
+	// 自动采集单选框
+	(function () {
+		var names = elem.find('input:radio.' + className).map(function () {
+			return $(this).attr('name');
+		}).toArray();
+		$.unique(names);
+		$.each(names, function (i, name) {
+			submit.reg({
+				group: group,
+				name: name,
+				get: function (name) {
+					return elem.find('input:radio[name="' + name + '"]:checked:last').attr('value') || '';
+				},
+				set: function (name, value, data) {
+					elem.find('input:radio[name="' + name + '"]').each(function () {
+						var the = $(this);
+						the.prop('checked', the.attr('value') == value);
+					});
+				}
+			});
+		});
+	})();
+	// 自动采集复选框
+	(function () {
+		var names = elem.find('input:checkbox.' + className).map(function () {
+			return $(this).attr('name');
+		}).toArray();
+		$.unique(names);
+		$.each(names, function (i, name) {
+			submit.reg({
+				group: group,
+				name: name,
+				get: function (name) {
+					return elem.find('input:checkbox[name="' + name + '"]:checked').map(function () {
+						return $(this).attr('value');
+					}).toArray();
+				},
+				set: function (name, value, data) {
+					elem.find('input:checkbox[name="' + name + '"]').each(function () {
+						var the = $(this);
+						the.prop('checked', $.inArray(the.attr('value'), value) >= 0);
+					});
+				}
+			});
+		});
+	})();
+};

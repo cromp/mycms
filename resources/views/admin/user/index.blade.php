@@ -14,14 +14,14 @@
 			</div>
 		</div>
 		<!-- 按钮 -->
-		<div class="well">
+		<div class="well" id="table-default">
 			<!-- 搜索框 -->
 			@include('admin.user.index.search')
 			<hr>
 			<!-- 批量操作块 -->
 			@include('admin.user.index.batch')
 		<!-- 表格 -->
-			<div class="table-responsive" id="table-content"></div>
+			<div class="table-responsive vmc-table"></div>
 			<!-- 列表底部分页 -->
 			@include('admin.inc.pageFooter')
 		</div>
@@ -36,13 +36,20 @@
 	<script type="text/javascript">
 		url.table = "{{ URL::asset('/user/table') }}";
 	</script>
-	<script type="text/javascript" src="{{ URL::asset(config('custom.src_url').'/admin/js/common.table.js') }}"></script>
+	@include('admin.inc.headList')
 @endsection
 
 @section('script')
 	<script type="text/javascript">
-		$(function () {
-			search.execute('page', 'auto');
-		});
+		var block = $('#table-default');
+		var search = new vmcList(block, url.table);
+
+
+
+
+
+
+		search.init();
+		search.submit.execute('page', 'auto');
 	</script>
 @endsection

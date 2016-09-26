@@ -2,10 +2,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Model\Users;
 use App\Http\Requests;
 use Illuminate\Support\Facades\URL;
-use Validator;
+use App\Model\Users;
 
 class UsersController extends Controller
 {
@@ -13,6 +12,7 @@ class UsersController extends Controller
 	{
 
 		return view('admin.user.index');
+
 	}
 
 	public function table(Request $request)
@@ -39,27 +39,20 @@ class UsersController extends Controller
 			}
 		})->paginate(5);
 		return view('admin.user.index.table', ['users' => $users]);
+
 	}
 
 	public function create()
 	{
+
 		return view('admin.user.create');
+
 	}
 
-	/**
-	 * 插入用户
-	 * @param Request $request
-	 * @return mixed
-	 */
 	public function insert(Requests\UsersPostRequest $request)
 	{
+
 		return '新增成功';
-		/*$validator = Validator::make($request->all(), [
-			'username' => 'required',
-		]);
-		if ($validator->fails()) {
-			//return $validator->errors();
-		}*/
 
 	}
 }

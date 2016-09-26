@@ -1,6 +1,6 @@
 <div class="side" id="vmc-menu">
 	<div class="panel">
-		<a href="{:U('Index/main')}" class="panel-heading single" target="mainframe">欢迎页</a>
+		<a href="{{ url('/home') }}" class="panel-heading single" target="mainframe">欢迎页</a>
 	</div>
 	<div class="panel">
 		<div class="panel-heading" data-toggle="collapse" data-target="#vmc-menu-user" data-parent="#vmc-menu">用户管理 <span class="caret"></span></div>

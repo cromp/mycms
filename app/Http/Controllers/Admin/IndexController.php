@@ -11,7 +11,12 @@ class IndexController extends Controller
 
 	public function index()
 	{
-		return view('admin.layouts.frame');
+		return view('admin.index.frame');
+	}
+
+	public function home()
+	{
+		return view('admin.index.home');
 	}
 
 }
